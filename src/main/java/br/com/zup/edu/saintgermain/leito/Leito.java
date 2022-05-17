@@ -11,15 +11,12 @@ import java.util.List;
 
 
 @Entity
-@OptimisticLocking(type = OptimisticLockType.DIRTY)
+@OptimisticLocking(type = OptimisticLockType.ALL)
 @DynamicUpdate
 public class Leito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "leito", cascade = CascadeType.ALL)
-    private List<Reserva> reservas;
 
     @Column(nullable = false)
     private String titulo;

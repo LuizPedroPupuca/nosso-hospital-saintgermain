@@ -2,8 +2,10 @@ package br.com.zup.edu.saintgermain.leito;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -27,7 +29,7 @@ public class ReservaController {
     @PutMapping("/leito/{id}")
     public ResponseEntity atualizaReserva(@PathVariable Long id){
         Leito leito = leitoRepository.findById(id).orElseThrow(()
-                -> new RuntimeException("Leito não encontrado"));
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Leito não encontrado"));
         leito.atualizaReservaParaLivre();
         return ResponseEntity.ok().body(leitoRepository.save(leito));
     }
